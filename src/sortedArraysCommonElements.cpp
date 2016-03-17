@@ -23,7 +23,38 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
+int cmpdate(char *date1, char* date2);
 
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	int SIZE;
+	if (A == NULL || B == NULL)
+		return NULL;
+	if (ALen > BLen)
+	{
+		SIZE = ALen;
+	}
+	else
+	{
+		SIZE = BLen;
+	}
+	struct transaction * cmnelems = (struct transaction *)malloc(sizeof(struct transaction)*SIZE);
+	int ATrans, BTrans, commonElementIndex=0;
+	for (ATrans = 0; ATrans < ALen; ATrans++)
+	{
+		for (BTrans = 0; BTrans < BLen; BTrans++)
+		{	
+			int res = cmpdate(A[ATrans].date, B[BTrans].date);
+			if (res==1)
+			{
+				cmnelems[commonElementIndex++] = A[ATrans];
+
+			}
+		}
+	}
+	if (commonElementIndex == 0)
+	{
+		return NULL;
+	}
+
+	return cmnelems;
 }
